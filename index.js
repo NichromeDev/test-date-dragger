@@ -22,9 +22,7 @@ const thirdDate = document.getElementById("third-date");
 const DateToDays = () => {
   const date1 = new Date(beginDate);
   const date2 = new Date(endDate);
-  return Math.ceil(
-    (date2.getTime() - date1.getTime()) / (1000 * 3600 * 24)
-  );
+  return Math.ceil((date2.getTime() - date1.getTime()) / (1000 * 3600 * 24));
 };
 
 const daysToDate = (coff) => {
@@ -157,10 +155,17 @@ firstDragger.onmousedown = (e) => {
   currentX = e.clientX;
   firstWidth = first.offsetWidth;
   secondWidth = second.offsetWidth;
-  this.onmousemove = dragger1;
+  document.addEventListener("mousemove", dragger1);
+  //firstDragger.onmousemove = dragger1;
 };
-firstDragger.onmouseup = () => (this.onmousemove = noop);
-firstDragger.onmouseout = () => (this.onmousemove = noop);
+//firstDragger.onmouseup = () => (firstDragger.onmousemove = noop);
+// window.onmouseup = () => (firstDragger.onmousemove = noop);
+window.onmouseup = () => {
+  document.removeEventListener("mousemove", dragger1);
+  document.removeEventListener("mousemove", dragger2);
+  document.removeEventListener("mousemove", dragger3);
+};
+//firstDragger.onmouseout = () => (this.onmousemove = noop);
 
 secondDragger.onmousedown = (e) => {
   currentX = e.clientX;
@@ -168,20 +173,22 @@ secondDragger.onmousedown = (e) => {
   secondWidth = second.offsetWidth;
   thirdWidth = third.offsetWidth;
   supportWidth = first.offsetWidth;
-  this.onmousemove = dragger2;
+  document.addEventListener("mousemove", dragger2);
+  // this.onmousemove = dragger2;
 };
-secondDragger.onmouseup = () => (this.onmousemove = noop);
-secondDragger.onmouseout = () => (this.onmousemove = noop);
+// secondDragger.onmouseup = () => (this.onmousemove = noop);
+// secondDragger.onmouseout = () => (this.onmousemove = noop);
 
 thirdDragger.onmousedown = (e) => {
   currentX = e.clientX;
   secondWidth = second.offsetWidth;
   thirdWidth = third.offsetWidth;
   supportWidth = first.offsetWidth;
-  this.onmousemove = dragger3;
+  document.addEventListener("mousemove", dragger3);
+  // this.onmousemove = dragger3;
 };
-thirdDragger.onmouseup = () => (this.onmousemove = noop);
-thirdDragger.onmouseout = () => (this.onmousemove = noop);
+// thirdDragger.onmouseup = () => (this.onmousemove = noop);
+// thirdDragger.onmouseout = () => (this.onmousemove = noop);
 
 const setAccess = () => {
   draggers.forEach((el) => {
